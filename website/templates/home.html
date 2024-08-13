@@ -1,0 +1,67 @@
+{%extends "base.html"%}
+{%block title%}Home{%endblock%}
+{%block next_postit%}Home{%endblock%}
+{%block home_active%}active{%endblock%}
+
+
+{%block content%} 
+
+<div class="row min-vh-100">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-9 pt-3 pe-5">
+        <div class="row pt-5">{%include "alerts.html"%}</div>
+        <div class="row pt-2">
+            <ul class="d-flex flex-column">
+                {%for item in notes%}
+                <li class="list-group-item mt-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="col"><strong>@<a class="text-dark" id="user_profile_link" href="{{url_for('views.checked_profile', checked_username=item.username)}}">{{ item.username }}</strong></a> wrote: </div>
+                        </div>
+                        <div class="card-body"><span>{{ item.note.content }}</span></div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col">
+                                    <form action="{{url_for('views.like_note', note_id=item.note.id)}}", method="POST">
+                                        {%if item.like != None%}
+                                            <button type="submit" class="btn btn-lg p-0 border-0 bg-transparent text-danger"><i class="fas fa-heart"></i></button>
+                                            <span class="align-middle ms-2 ps-2 border-start border-dark">{{item.note.likes | length }} people liked</span>
+                                        {%else%}
+                                                <button type="submit" class="btn btn-lg p-0 border-0 bg-transparent text-secondary" id="unliked_button"><i class="far fa-heart"></i></button>
+                                                <span class="align-middle ms-2 ps-2 border-start border-dark">{{item.note.likes | length }} people liked</span>
+                                        {%endif%}
+                                    </form>
+                                </div>
+                                <div class="col d-flex justify-content-end">
+                                    <p class="text-start text-muted mb-0 d-inline-block" style="margin-right: 0.5vw;"><small><strong>Posted On:</strong></small></p>
+                                    <p class="text-end text-muted mb-0 d-inline-block"><small>{{ item.note.date.strftime('%d-%m-%Y %H:%M') }}</small></p>
+                                </div>
+                            </div>
+
+
+                    
+
+                            
+                                
+
+                        </div>
+                </li>
+                {%else%}
+                    <p>This place looks empty.</p> 
+                {%endfor%}
+            </ul>      
+        </div>
+    </div>
+    <div class="col-sm-2 border-start border-dark"></div>
+</div>
+
+
+
+ 
+
+
+
+{%endblock%}
+
+
+     

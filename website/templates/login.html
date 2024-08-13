@@ -1,0 +1,53 @@
+{%extends "base.html"%}
+{%block title%}Login{%endblock%}
+{%block next_postit%}Login{%endblock%}
+{%block login_active%}active{%endblock%}
+
+{%block content%} 
+<div class="container-md p-5 my-5 ">
+    <div class="pt-5 pb-5 bg-dark rounded-top">
+        <p class="h1 text-center text-white">Login</p>        
+        </div>
+    <form method="POST">
+    <div class="row pt-5">{%include "alerts.html"%}</div>
+    <div class="form-group p-3 my-3">
+        <label for="login_email" class="form-label h4 pt-3">Email Adress</label>
+        <input type="text"
+            class="form-control p-3"
+            id="login_email"
+            name="login_email" 
+            placeholder="Enter Your Email">
+        <label class="form-label pt-5 h4" for="login_password">Password</label>
+        <input type="password"
+            class="form-control p-3",
+            id="login_password"
+            name="login_password"
+            placeholder="Enter Your Password">
+    </div>
+    <hr>
+    <div class="row pt-3">
+        <div class="col">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="remember_me" name="remember_me" value="yes" checked>
+                <label class="form-check-label" for="remember_me"><strong>Remember Me!</strong></label>
+              </div>
+        </div>
+        <div class="col d-flex justify-content-end">
+            <a href="/contact" class="text-muted muted-link">Did you forget your password?</a>
+
+        </div>
+
+    </div>
+    <div class="d-grid pt-4 ">
+        <button type="submit" class="btn btn-block btn-dark">Login</button>
+    </div>
+    <div class="d-flex justify-content-center pt-3">
+        <a href="/sign-up" class="text-muted muted-link">Don't have an account yet? <strong>Sign Up!</strong> </a>
+    </div>
+
+</form>
+</div>
+
+
+
+{%endblock%}

@@ -1,0 +1,62 @@
+{%extends "base.html"%}
+{%block title%}Sign Up{%endblock%}
+{%block next_postit%}Sign Up{%endblock%}
+{%block signup_active%}active{%endblock%}
+
+{%block content%} 
+<div class="container-md pl-5 pr-5 pb-5 my-5 ">
+
+    <div class="row pt-5 pb-5 bg-dark rounded-top">
+        <p class="h1 text-center text-white">Sign Up</p>        
+        </div>
+    <div class="row pt-5">{%include "alerts.html"%}</div>
+    <form method="POST" class=" d-flex pL-7 justify-content-center flex-column ">
+
+        <div class="row">
+            <div class="col p-3">
+                <label for="name" class="h4 mb-3">Name</label>
+                <input type="text" class="form-control p-3" id="name" placeholder="Name" name="name" required>
+
+            </div>
+            <div class="col p-3">
+                <label for="surname" class="h4 mb-3">Surname</label>
+                <input type="text" class="form-control p-3" id="surname" placeholder="Surname" name="surname" required>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col p-3">
+                <label for="username" class="h4 mb-3">Username</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-dark text-white">@</span>
+                    <input type="text" class="form-control p-3" id="username" placeholder="Username" name="username" required>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col p-3">
+                <label for="email" class="h4 mb-3">Email</label>
+                <input type="email" class="form-control p-3" id="email" placeholder="example@flaskapp.com" name="email" required>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col p-3">
+                <label for="password" class="h4 mb-3">Password</label>
+                <input type="password" class="form-control p-3" id="password" placeholder="Password" name="password" required>
+            </div>
+            <div class="col p-3">
+                <label for="confirm_password" class="h4 mb-3">Confirm Password</label>
+                <input type="password" class="form-control p-3" id="confirm_password" placeholder="Confirm Password" name="confirm_password" required>
+            </div>
+        </div>
+        <hr>
+        <div class="d-grid pt-3">
+            <button type="submit" class="btn btn-dark btn-block">Sign Up</button>
+        </div>
+    </form>
+</div>
+
+
+
+{%endblock%}

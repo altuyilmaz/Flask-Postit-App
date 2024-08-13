@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static', filename='stylesheet.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <title>{%block title%}Base{%endblock%} | Flask App</title>
+</head>
+<body>
+    <nav class="navbar navbar-dark navbar-expand-sm fixed-top bg-dark">
+            <button class="navbar-toggler collapsed", type="button", data-bs-toggle="collapse", data-bs-target="#navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbar">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-1"></div>
+                        <ul class="navbar-nav col-sm-1">
+                        {%if current_user.is_authenticated %}
+                            <li class="nav-item">
+                                <a href="/" class="nav-link {%block home_active%}{%endblock%}">Home</a>
+                            </li>
+                        {%endif%}
+                            <li class="nav-item">
+                                <a href="/about" class="nav-link {%block about_active%}{%endblock%}">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/contact" class="nav-link {%block contact_active%}{%endblock%}">Contact</a>
+                            </li>
+                        </ul>
+                            <span class="display-6 col-sm-8 text-white text-center" style="font-size: 3vh;">Post it! | {%block next_postit%}{%endblock%}</span>
+                        <ul class="navbar-nav col-sm-1">
+                        {%if current_user.is_authenticated %}
+                        <li class="nav-item">
+                            <a href="{{url_for('views.profile', username=current_user.username)}}" class="nav-link {%block profile_active%}{%endblock%}">{{current_user.username}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/logout" class="nav-link">Logout</a>
+                        </li>
+                        {%else%}
+                            <li class="nav-item">
+                                <a href="/login" class="nav-link {%block login_active%}{%endblock%}">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/sign-up" class="nav-link {%block signup_active%}{%endblock%}">Sign Up</a>
+                            </li>
+                        {%endif%}
+                        </ul>
+                        <div class="col-sm-1"></div>
+                    </div>
+                </div>
+            </div>
+    </nav>
+    <main class="container-fluid">
+    
+        {%block content%} {%endblock%}
+
+    </main>
+
+
+
+</body>
+
+<footer class="fixed-bottom">
+    <p class="footer-text">Made By <a href="/about" id="footer-asy">ASY</a></p>
+</footer>
+
+</html>  

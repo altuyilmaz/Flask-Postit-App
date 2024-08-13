@@ -1,0 +1,47 @@
+nav {
+    opacity: .8;
+}
+
+a {
+    text-decoration: none;
+}
+
+#user_profile_link:hover {
+    text-decoration: underline;
+}
+#unliked_button i {
+    transition: color 0.3s, transform 0.3s;
+}
+
+#unliked_button:hover i {
+    color: #dc3545; /* Change color to red */
+    transform: scale(1.1);
+    content: '\f004'; /* Unicode for filled heart */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900; /* Makes the heart solid */
+}
+
+.muted-link:hover {
+    text-decoration: underline;
+}
+footer {
+    width: 100vw;
+    height: 7vh; 
+    background-color: black;
+    opacity: .7;
+
+}
+.footer-text {
+    text-align: center;
+    color: white;
+    padding-top: 3vh;
+
+}
+
+#footer-asy {
+    color: #267BF1
+}
+
+#footer-asy:hover {
+    color: lightgray;
+}
