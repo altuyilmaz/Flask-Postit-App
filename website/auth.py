@@ -3,6 +3,8 @@ from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, logout_user, login_required, current_user
+from typing import Literal
+
 
 auth = Blueprint("auth", __name__)
 
@@ -61,23 +63,17 @@ def sign_up():
         elif existing_username:
             flash("This username is already taken.", category="error")
         elif len(name) < 2:
-            flash("Name cannot be shorter than 2 characters.", category="error")
-            print("Error 1")
+            sign_up_flash_error_notification("name","s","2")
         elif len(surname) <2:
-            flash("Surname cannot be shorter than 2 characters.", category="error")
-            print("Error 2")            
+            sign_up_flash_error_notification("surname","s","2")         
         elif len(username) < 2:
-            flash("Username cannot be shorter than 2 characters.", category="error")
-            print("Error 3")
+            sign_up_flash_error_notification("username","s",)
         elif len(username) > 20:
-            flash("Username cannot be longer than 20 characters", category="error")
-            print("Error 3.2")
+            sign_up_flash_error_notification("username","l","20")
         elif len(email) < 12:
-            flash("Email cannot be shorter than 12 characters.", category="error")
-            print("Error 4")
+            sign_up_flash_error_notification("email","s","12")
         elif len(password) < 7:
-            flash("Password cannot be shorter than 7 characters.", category="error")
-            print("Error 5")
+            sign_up_flash_error_notification("password","s","7")
         elif password != confirm_password:
             flash("Passwords do not match.", category="error")
             print("Error 6")
@@ -99,3 +95,18 @@ def sign_up():
 
 
     return render_template("sign-up.html")
+
+
+def sign_up_flash_error_notification(error_relation: str,
+                                    type: Literal["s","short","shorter","l","long","longer"],
+                                    char_len: str):
+    if type == "s" or type == "short" or type == "shorter":
+        notified_issue = "shorter"
+    elif type == "l" or type == "long" or type == "longer":
+        notified_issue = "longer"
+
+    error_string = f"{error_relation.capitalize()} cannot be {notified_issue} than {char_len} characters."
+
+    print(f"Error: '{error_relation}' : '{notified_issue}' : '{char_len}'")
+
+    return flash(error_string, category="error")
