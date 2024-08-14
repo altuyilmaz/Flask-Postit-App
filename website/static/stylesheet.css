@@ -1,3 +1,21 @@
+body {
+    background-color: #f8f9fa;
+    color: #333; /* Adjust text color for readability */
+    /*font-family: 'Source Sans Pro', sans-serif;*/
+}
+h1, h2, h3, h4, h5, h6 {
+    /*font-family: 'Playfair Display', serif;*/
+}
+body, p, a {
+    /*font-family: 'Source Sans Pro', sans-serif;*/
+}
+
+#page_title {
+    font-family: 'Lobster', cursive; /* Replace 'Lobster' with any other font from the list */
+    font-size: 3vh; /* Adjust the size as needed */
+    /*color: #333; /* Or any other color that fits your theme */
+}
+
 nav {
     opacity: .8;
 }

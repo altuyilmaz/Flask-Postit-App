@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename='stylesheet.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Great+Vibes&family=Abril+Fatface&family=Dancing+Script&display=swap" rel="stylesheet">
 
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -20,43 +21,38 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbar">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-1"></div>
-                        <ul class="navbar-nav col-sm-1">
-                        {%if current_user.is_authenticated %}
-                            <li class="nav-item">
-                                <a href="/" class="nav-link {%block home_active%}{%endblock%}">Home</a>
-                            </li>
-                        {%endif%}
-                            <li class="nav-item">
-                                <a href="/about" class="nav-link {%block about_active%}{%endblock%}">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/contact" class="nav-link {%block contact_active%}{%endblock%}">Contact</a>
-                            </li>
-                        </ul>
-                            <span class="display-6 col-sm-8 text-white text-center" style="font-size: 3vh;">Post it! | {%block next_postit%}{%endblock%}</span>
-                        <ul class="navbar-nav col-sm-1">
-                        {%if current_user.is_authenticated %}
-                        <li class="nav-item">
-                            <a href="{{url_for('views.profile', username=current_user.username)}}" class="nav-link {%block profile_active%}{%endblock%}">{{current_user.username}}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/logout" class="nav-link">Logout</a>
-                        </li>
-                        {%else%}
-                            <li class="nav-item">
-                                <a href="/login" class="nav-link {%block login_active%}{%endblock%}">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/sign-up" class="nav-link {%block signup_active%}{%endblock%}">Sign Up</a>
-                            </li>
-                        {%endif%}
-                        </ul>
-                        <div class="col-sm-1"></div>
+                    <div class="container-fluid d-flex">
+                        <div class="d-flex ps-3 pe-3">
+                            <span class="text-white align-self-center me-4 ms-2" id="page_title">Post it!</span>
+                            <span class="text-white align-self-center border-start border-white border-2 ps-2">{%block next_postit%}{%endblock%}</span>
+                        </div>                        
+                        <div class="flex-grow-1">
+                            <ul class="navbar-nav container-fluid d-flex justify-content-end">
+                                {%if current_user.is_authenticated %}
+                                    <li class="nav-item pe-3">
+                                        <a href="/" class="nav-link {%block home_active%}{%endblock%}">Home</a>
+                                    </li>
+                                {%endif%}
+                                {%if current_user.is_authenticated %}
+                                    <li class="nav-item dropdown">
+                                        <a href="#" class="nav-link {%block profile_active%}{%endblock%} dropdown-toggle" data-bs-toggle="dropdown">{{current_user.username}}</a>
+                                        <ul class="dropdown-menu bg-dark">
+                                            <li><a href="{{url_for('views.profile', username=current_user.username)}}" class="dropdown-item text-white">Profile</a></li>
+                                            <li><a href="#" class="dropdown-item text-white">Settings</a></li>
+                                            <li><hr class="dropdown-divider"><a href="/logout" class="dropdown-item text-white">Logout</a></hr></li>
+                                        </ul>
+                                    </li>
+                                {%else%}
+                                    <li class="nav-item">
+                                        <a href="/login" class="nav-link {%block login_active%}{%endblock%}">Login</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/sign-up" class="nav-link {%block signup_active%}{%endblock%}">Sign Up</a>
+                                    </li>
+                                {%endif%}
+                            </ul>
+                        </div>
                     </div>
-                </div>
             </div>
     </nav>
     <main class="container-fluid">
