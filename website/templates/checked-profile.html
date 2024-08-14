@@ -13,13 +13,13 @@
 <main>
     <div class="row min-vh-100">
         <div class="col-sm-1"></div>
-        <div class="col-sm-9 pe-5 pt-5">
-            <div class="row pt-3">{%include "alerts.html"%}</div>
-            <div class="row pt-3"><p class="display-6">Notes of {{user.name}} (@{{user.username}}):</p></div>
+        <div class="col-sm-9 pe-5 pt-4">
+            <div class="row pt-1">{%include "alerts.html"%}</div>
+            <div class="row pt-1"><p class="display-6">Notes of {{user.name}} (@{{user.username}}):</p></div>
             <div class="row pt-3">
-                <ul class="list-group list-group-flush">
+                <ul>
                     {%for item in note_like_data%}
-                    <li class="list-group-item">
+                    <li class="list-group-item mt-3">
                         <div class="card">
                             <div class="card-header d-flex">
                                 <span><strong>@{{ user.username }}</strong> wrote:</span>
@@ -50,7 +50,10 @@
                         <p>{{user.username}} has no notes yet.</p> 
                     {%endfor%}
                 </ul>
-            </div>            
+            </div>  
+            <div class="row p-3 pb-5 d-flex justify-content-end">
+                {%include "load-more-link.html"%}
+            </div>          
         </div>        
         <div class="col-sm-2 border-start border-dark">
             <div class="row pt-3"></div>

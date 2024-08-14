@@ -3,6 +3,11 @@ body {
     color: #333; /* Adjust text color for readability */
 }
 
+a {
+    text-decoration: none;
+}
+
+
 #page_title {
     font-family: 'Lobster', cursive; /* Replace 'Lobster' with any other font from the list */
     font-size: 3vh; /* Adjust the size as needed */
@@ -12,13 +17,14 @@ body {
     font-size: 2vh;
 }
 
-nav {
-    opacity: .8;
-}
 .dropdown-menu {
     position: absolute !important;
     right: 0 !important;
     left: auto !important; 
+}
+
+nav {
+    opacity: .8;
 }
 
 .nav-dropdown-regular-item, #logout-button {
@@ -43,10 +49,6 @@ nav {
     border-radius: 2px;
 }
 
-a {
-    text-decoration: none;
-}
-
 #user_profile_link:hover {
     text-decoration: underline;
 }
@@ -61,7 +63,29 @@ a {
     font-family: 'Font Awesome 5 Free';
     font-weight: 900; /* Makes the heart solid */
 }
-
+.loader-container, .prev-page-container {
+    margin: 10px;
+    text-align: end;
+}
+.prev-page-container {
+    text-align: start !important;
+}
+#load-more, #go-back {
+    padding: 5px;
+    color: #0d6efd;
+    transition: background-color 0.2s ease-in, color 0.2s ease, border 0.2s ease-in-out;
+}
+#load-more:hover, #go-back:hover {
+    border-bottom: 2px solid #0d6efd;
+}
+#load-more:active, #go-back:active {
+    background-color: #0d6efd;
+    color: white;
+    border-radius: 5px;
+}
+#load-no-more {
+    color: grey;
+}
 .muted-link:hover {
     text-decoration: underline;
 }
