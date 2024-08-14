@@ -1,23 +1,46 @@
 body {
     background-color: #f8f9fa;
     color: #333; /* Adjust text color for readability */
-    /*font-family: 'Source Sans Pro', sans-serif;*/
-}
-h1, h2, h3, h4, h5, h6 {
-    /*font-family: 'Playfair Display', serif;*/
-}
-body, p, a {
-    /*font-family: 'Source Sans Pro', sans-serif;*/
 }
 
 #page_title {
     font-family: 'Lobster', cursive; /* Replace 'Lobster' with any other font from the list */
     font-size: 3vh; /* Adjust the size as needed */
-    /*color: #333; /* Or any other color that fits your theme */
+}
+#page_title_footer {
+    font-family: 'Lobster', cursive;
+    font-size: 2vh;
 }
 
 nav {
     opacity: .8;
+}
+.dropdown-menu {
+    position: absolute !important;
+    right: 0 !important;
+    left: auto !important; 
+}
+
+.nav-dropdown-regular-item, #logout-button {
+    text-align: center;
+    transition: background-color 0.2s ease, color 0.2s ease, border 0.2s ease;
+}
+.nav-dropdown-regular-item:hover {
+    border-right: 6px solid lightsalmon;
+    border-left: 6px solid lightsalmon;
+}
+.nav-dropdown-regular-item:active {
+    background-color: lightsalmon;
+    color: white;
+}
+#logout-button:active {
+    background-color: #dc3545;
+    color: white;
+}
+#logout-button:hover {
+    border-right: 6px solid #dc3545;
+    border-left: 6px solid #dc3545;
+    border-radius: 2px;
 }
 
 a {
@@ -43,21 +66,23 @@ a {
     text-decoration: underline;
 }
 footer {
-    width: 100vw;
-    height: 7vh; 
-    background-color: black;
-    opacity: .7;
-
+    background-color: #333;
 }
-.footer-text {
-    text-align: center;
-    color: white;
-    padding-top: 3vh;
 
+.footer-link {
+    text-align: center;
+    transition: border 0.2s ease;
+}
+
+.footer-link:hover {
+    border-bottom: 2px solid white;
+}
+.footer-link:active {
+    border-color: lightsalmon;
 }
 
 #footer-asy {
-    color: #267BF1
+    color: lightsalmon
 }
 
 #footer-asy:hover {

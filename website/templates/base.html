@@ -15,7 +15,7 @@
     <title>{%block title%}Base{%endblock%} | Flask App</title>
 </head>
 <body>
-    <nav class="navbar navbar-dark navbar-expand-sm fixed-top bg-dark">
+    <nav class="navbar navbar-dark navbar-expand-sm sticky-top bg-dark">
             <button class="navbar-toggler collapsed", type="button", data-bs-toggle="collapse", data-bs-target="#navbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -23,7 +23,7 @@
             <div class="collapse navbar-collapse" id="navbar">
                     <div class="container-fluid d-flex">
                         <div class="d-flex ps-3 pe-3">
-                            <span class="text-white align-self-center me-4 ms-2" id="page_title">Post it!</span>
+                            <a href="/" style="text-decoration: none;" class="text-white align-self-center me-4 ms-2" id="page_title">Post it!</a>
                             <span class="text-white align-self-center border-start border-white border-2 ps-2">{%block next_postit%}{%endblock%}</span>
                         </div>                        
                         <div class="flex-grow-1">
@@ -35,11 +35,13 @@
                                 {%endif%}
                                 {%if current_user.is_authenticated %}
                                     <li class="nav-item dropdown">
-                                        <a href="#" class="nav-link {%block profile_active%}{%endblock%} dropdown-toggle" data-bs-toggle="dropdown">{{current_user.username}}</a>
-                                        <ul class="dropdown-menu bg-dark">
-                                            <li><a href="{{url_for('views.profile', username=current_user.username)}}" class="dropdown-item text-white">Profile</a></li>
-                                            <li><a href="#" class="dropdown-item text-white">Settings</a></li>
-                                            <li><hr class="dropdown-divider"><a href="/logout" class="dropdown-item text-white">Logout</a></hr></li>
+                                        <a href=""  data-bs-toggle="dropdown" class="nav-link dropdown-toggle {%block profile_active%}{%endblock%}">{{current_user.username}}</a>
+                                        <ul class="dropdown-menu">
+                                            <li id="profile-area"><a href="{{url_for('views.profile', username=current_user.username)}}" class="dropdown-item nav-dropdown-regular-item">Profile</a></li>
+                                            <li id="settings-area"><a href="#" class="dropdown-item nav-dropdown-regular-item">Settings</a></li>
+                                            <li id="logout-area">
+                                                <a href="/logout" class="dropdown-item" id="logout-button">Logout</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 {%else%}
@@ -65,8 +67,21 @@
 
 </body>
 
-<footer class="fixed-bottom">
-    <p class="footer-text">Made By <a href="/about" id="footer-asy">ASY</a></p>
+<footer>    
+    <div class="container-fluid">
+        <div class="row p-4">
+            <div class="col-sm-6 ps-3 d-flex justify-content-start">
+                <a href="/" class="text-white pe-2" id="page_title_footer">Post it!</a>
+                <span class="footer-text border-start border-white ps-2 text-white">Made By <a href="/about" id="footer-asy">ASY</a></span>                
+            </div> 
+            <div class="col-sm-6 d-flex justify-content-end pe-3">
+                <a href="/about" class="text-white footer-link">About</a>
+                <span class="text-white me-3 ms-3">|</span>
+                <a href="/contact" class="text-white footer-link">Contact</a>
+            </div>
+           
+        </div>
+    </div>
 </footer>
 
 </html>  
