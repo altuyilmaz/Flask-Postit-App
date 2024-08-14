@@ -69,6 +69,9 @@ def sign_up():
         elif len(username) < 2:
             flash("Username cannot be shorter than 2 characters.", category="error")
             print("Error 3")
+        elif len(username) > 20:
+            flash("Username cannot be longer than 20 characters", category="error")
+            print("Error 3.2")
         elif len(email) < 12:
             flash("Email cannot be shorter than 12 characters.", category="error")
             print("Error 4")
