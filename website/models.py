@@ -5,17 +5,17 @@ from sqlalchemy.sql import func
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(128), unique=True)
-    name = db.Column(db.String(50))
-    surname = db.Column(db.String(50))
-    password = db.Column(db.String(150))
-    username = db.Column(db.String(50), unique=True)
+    email = db.Column(db.String(50), unique=True)
+    name = db.Column(db.String(20))
+    surname = db.Column(db.String(20))
+    password = db.Column(db.String(20))
+    username = db.Column(db.String(20), unique=True)
     notes = db.relationship("Note", backref="author", lazy=True)
     likes = db.relationship("Like", backref="user", lazy=True)
 
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String(10000))
+    content = db.Column(db.String(400))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     likes = db.relationship("Like", backref="note", lazy=True)

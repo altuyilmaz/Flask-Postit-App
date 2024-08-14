@@ -4,7 +4,7 @@ from .models import User, Note, Like
 from . import db
 import pytz
 from datetime import datetime, timedelta
-
+from .auth import char_len_flash_error_notification
 
 views = Blueprint("views", __name__)
 
@@ -54,9 +54,13 @@ def create_note():
     if request.method == "POST":
         content = request.form.get("content")
         print(content)
-
-        if not content:
+        len_checked_content = content.replace(" ", "")
+        print(len_checked_content)
+        print(len(len_checked_content))
+        if not len_checked_content:
             flash("Notes cannot be empty.", category="error")
+        elif len(len_checked_content) > 400:
+            char_len_flash_error_notification("Length of notes (without spaces)","l","400")
         else:
             new_note = Note(content=content, user_id=current_user.id)
             db.session.add(new_note)

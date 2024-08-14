@@ -63,17 +63,17 @@ def sign_up():
         elif existing_username:
             flash("This username is already taken.", category="error")
         elif len(name) < 2:
-            sign_up_flash_error_notification("name","s","2")
+            char_len_flash_error_notification("name","s","2")
         elif len(surname) <2:
-            sign_up_flash_error_notification("surname","s","2")         
+            char_len_flash_error_notification("surname","s","2")         
         elif len(username) < 2:
-            sign_up_flash_error_notification("username","s",)
+            char_len_flash_error_notification("username","s",)
         elif len(username) > 20:
-            sign_up_flash_error_notification("username","l","20")
+            char_len_flash_error_notification("username","l","20")
         elif len(email) < 12:
-            sign_up_flash_error_notification("email","s","12")
+            char_len_flash_error_notification("email","s","12")
         elif len(password) < 7:
-            sign_up_flash_error_notification("password","s","7")
+            char_len_flash_error_notification("password","s","7")
         elif password != confirm_password:
             flash("Passwords do not match.", category="error")
             print("Error 6")
@@ -97,7 +97,7 @@ def sign_up():
     return render_template("sign-up.html")
 
 
-def sign_up_flash_error_notification(error_relation: str,
+def char_len_flash_error_notification(error_relation: str,
                                     type: Literal["s","short","shorter","l","long","longer"],
                                     char_len: str):
     if type == "s" or type == "short" or type == "shorter":
