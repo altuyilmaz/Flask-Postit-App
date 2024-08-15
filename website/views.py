@@ -4,36 +4,16 @@ from .models import User, Note, Like
 from . import db
 import pytz
 from datetime import datetime, timedelta
-from .auth import char_len_flash_error_notification
-
+from .processor import char_len_flash_error_notification, display_notes
 views = Blueprint("views", __name__)
 
 @views.route("/")
 def home():
     if current_user.is_authenticated:
-        page = request.args.get("page",1,type=int)
-        paginated_notes = Note.query.order_by(Note.date.desc()).paginate(page=page,per_page=10)
-        notes_of_users = []
-        for note in paginated_notes.items:
-            user = User.query.get(note.user_id)
-            note.date = note.date.replace(tzinfo=pytz.utc).astimezone(pytz.timezone('Europe/Istanbul'))
-            user_liked = Like.query.filter_by(user_id=current_user.id, note_id= note.id).first()
-            notes_of_users.append({"note":note, "username":user.username, "like":user_liked})
-
-
-        return render_template("home.html", notes=notes_of_users, pagination=paginated_notes)
-
+        note_data,pagination = display_notes(home=True)
+        return render_template("home.html", notes=note_data, pagination=pagination)
     else:
         return redirect(url_for("auth.login"))
-
-@views.route("/about")
-def about():
-    return render_template("about.html")
-
-@views.route("/contact")
-def contact():
-    return render_template("contact.html")
-
 
 @views.route("/profiles/<target_username>")
 @login_required
@@ -45,28 +25,12 @@ def user_gate_keeper(target_username):
 
 
 def profile():
-    user = User.query.filter_by(username=current_user.username).first_or_404()
-    page = request.args.get("page", 1, type=int)
-    paginated_notes = Note.query.filter_by(user_id=user.id).order_by(Note.date.desc()).paginate(page=page, per_page=10)
-    note_data = []
-    for note in paginated_notes.items:
-        note.date = note.date.replace(tzinfo=pytz.utc).astimezone(pytz.timezone('Europe/Istanbul'))
-        user_liked = Like.query.filter_by(user_id=user.id,note_id=note.id).first()
-        note_data.append({"note":note,"user":user,"user_liked":user_liked})
-    return render_template("profile.html", user=user, note_data=note_data, pagination=paginated_notes)
+    user,note_data,pagination = display_notes(target_username=current_user.username,home=False)
+    return render_template("profile.html", user=user, note_data=note_data, pagination=pagination)
 
-def checked_profile(target_username): 
-    user = User.query.filter_by(username=target_username).first_or_404()
-    page = request.args.get("page", 1, type=int)
-    paginated_notes = Note.query.filter_by(user_id=user.id).order_by(Note.date.desc()).paginate(page=page, per_page=10)
-    print("checked user activated.")
-    local_tz = pytz.timezone('Europe/Istanbul')
-    note_like_data = []
-    for note in paginated_notes.items:
-        note.date = note.date.replace(tzinfo=pytz.utc).astimezone(local_tz)
-        checking_user_liked = Like.query.filter_by(user_id=current_user.id,note_id=note.id).first()
-        note_like_data.append({"note":note,"checking_user_liked":checking_user_liked})
-    return render_template("checked-profile.html", user=user, note_like_data=note_like_data, pagination=paginated_notes)
+def checked_profile(target_username):
+    user,note_data,pagination = display_notes(target_username=target_username,home=False) 
+    return render_template("checked-profile.html", user=user, note_like_data=note_data, pagination=pagination)
 
 
 @views.route("/profiles/create_notes", methods=["POST","GET"])
@@ -118,3 +82,11 @@ def like_note(note_id):
         print("liked")
     
     return redirect(request.referrer)
+
+@views.route("/about")
+def about():
+    return render_template("about.html")
+
+@views.route("/contact")
+def contact():
+    return render_template("contact.html")
