@@ -1,0 +1,27 @@
+{%if request.endpoint == 'views.user_gate_keeper'%}
+    {% set link_load_more = url_for('views.user_gate_keeper', target_username=user.username, page=pagination.next_num)%}
+    {% set link_prev_page = url_for('views.user_gate_keeper', target_username=user.username, page=pagination.prev_num)%}
+    {% set link_no_more = url_for('views.user_gate_keeper', target_username=user.username)%}
+{%elif request.endpoint == 'views.home'%}
+    {% set link_load_more = url_for('views.home', page=pagination.next_num)%}
+    {% set link_prev_page = url_for('views.home', page=pagination.prev_num)%}
+    {% set link_no_more = url_for('views.home')%}
+{%endif%}
+
+<div class="row pb-4 pt-4">
+    {% if pagination.has_prev %}
+        <div class="col text-start">
+            <a href="{{link_prev_page}}" id="go-back" class=""><i class="fa-solid fa-arrow-left"></i> Go Back</a>
+        </div>
+    {% else %}
+        <div class="col"></div> <!-- Empty column to maintain alignment -->
+    {% endif %}
+    
+    <div class="col text-end">
+        {% if pagination.has_next %}
+            <a href="{{link_load_more}}" id="load-more" class="">Load More <i class="fa-solid fa-arrow-right"></i></a>
+        {% else %}
+            <a href="{{link_no_more}}" id="load-no-more">You have reached the end of notes. <i class="fa-solid fa-face-sad-cry" style="font-size: 10vh;"></i></a>
+        {% endif %}
+    </div>
+</div>

@@ -48,9 +48,15 @@ nav {
     border-left: 6px solid #dc3545;
     border-radius: 2px;
 }
-
+#user_profile_link {
+    color: #333 !important;
+    transition: color 0.2s ease !important; 
+}
 #user_profile_link:hover {
     text-decoration: underline;
+}
+#user_profile_link:active {
+    color: #0d6efd!important;
 }
 #unliked_button i {
     transition: color 0.3s, transform 0.3s;

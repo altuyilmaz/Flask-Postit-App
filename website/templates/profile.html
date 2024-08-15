@@ -15,8 +15,8 @@
 
 <main>
     <div class="row min-vh-100">
-        <div class="col-sm-1"></div>
-        <div class="col-sm-9 pe-5 pt-4">
+        <div class="col-sm-2 border-end border-dark"><h3 class="text-white">Profile Section Here</h3></div>
+        <div class="col-sm-7 ps-5 pe-5 pt-4">
             <div class="row pt-1">{%include "alerts.html"%}</div>
             <div class="row pt-1"><p class="display-6">Hello {{current_user.name}}!</p></div>
             <div class="row pt-3">
@@ -39,12 +39,12 @@
                             <div class="card-header d-flex">
                                 <div class="col"><strong>@{{ item.user.username }}</strong> wrote: </div>
                                 <div class="col d-flex justify-content-end">
-                                <form action="{{url_for('views.delete_note', note_id=item.note.id)}}"
+                                    <form action="{{url_for('views.delete_note', note_id=item.note.id)}}"
                                     method="POST"
                                     style="display: inline;"
                                     onsubmit="return confirm('Are you sure you want to delete this note?');">
                                     <button type="submit" class="btn btn-sm btn-close" id="delete_button"></button>
-                                </form>
+                                    </form>
                                 </div>
                             </div>
                             <div class="card-content p-2 ml-2"><p class="p-2">{{ item.note.content }}</p></div>
@@ -74,15 +74,11 @@
                     {%endfor%}
                 </ul>
             </div> 
-            <div class="row p-3 pb-5 d-flex justify-content-end">
-                {%include "load-more-link.html"%}
-            </div>           
-        </div>        
-        <div class="col-sm-2 border-start border-dark">
-            <div class="row pt-3"></div>
-            <h3 class="text-white text-center">This is Profile Info Section</h3>
+            {%include "load-more-link.html"%}       
+        </div> 
+        <div class="col-sm-3 border-start border-dark">
+            <h3 class="text-white text-center">People Will Write Things Here</h3>
         </div>
-
     </div>
 </main>
 {%endblock%}

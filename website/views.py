@@ -34,19 +34,40 @@ def about():
 def contact():
     return render_template("contact.html")
 
-@views.route(f"/profiles/<username>")
+
+@views.route("/profiles/<target_username>")
 @login_required
-def profile(username):
+def user_gate_keeper(target_username):
+    if target_username == current_user.username:   
+        return profile()
+    else:       
+        return checked_profile(target_username)
+
+
+def profile():
+    user = User.query.filter_by(username=current_user.username).first_or_404()
     page = request.args.get("page", 1, type=int)
-    user = User.query.filter_by(username=username).first_or_404()
     paginated_notes = Note.query.filter_by(user_id=user.id).order_by(Note.date.desc()).paginate(page=page, per_page=10)
     note_data = []
     for note in paginated_notes.items:
         note.date = note.date.replace(tzinfo=pytz.utc).astimezone(pytz.timezone('Europe/Istanbul'))
         user_liked = Like.query.filter_by(user_id=user.id,note_id=note.id).first()
         note_data.append({"note":note,"user":user,"user_liked":user_liked})
-    #print(note_data)
-    return render_template("profile.html", note_data=note_data, pagination=paginated_notes)
+    return render_template("profile.html", user=user, note_data=note_data, pagination=paginated_notes)
+
+def checked_profile(target_username): 
+    user = User.query.filter_by(username=target_username).first_or_404()
+    page = request.args.get("page", 1, type=int)
+    paginated_notes = Note.query.filter_by(user_id=user.id).order_by(Note.date.desc()).paginate(page=page, per_page=10)
+    print("checked user activated.")
+    local_tz = pytz.timezone('Europe/Istanbul')
+    note_like_data = []
+    for note in paginated_notes.items:
+        note.date = note.date.replace(tzinfo=pytz.utc).astimezone(local_tz)
+        checking_user_liked = Like.query.filter_by(user_id=current_user.id,note_id=note.id).first()
+        note_like_data.append({"note":note,"checking_user_liked":checking_user_liked})
+    return render_template("checked-profile.html", user=user, note_like_data=note_like_data, pagination=paginated_notes)
+
 
 @views.route("/profiles/create_notes", methods=["POST","GET"])
 @login_required
@@ -81,22 +102,6 @@ def delete_note(note_id):
             flash("Something went wrong.", category="error")
     return redirect(url_for("views.profile", username=current_user.username))
 
-@views.route("/profiles/author/<checked_username>")
-@login_required
-def checked_profile(checked_username):
-    user = User.query.filter_by(username=checked_username).first_or_404()
-    if current_user.id == user.id:
-        return redirect(url_for("views.profile", username=current_user.username))
-    page = request.args.get("page", 1, type=int)
-    paginated_notes = Note.query.filter_by(user_id=user.id).order_by(Note.date.desc()).paginate(page=page, per_page=10)
-    print("checked user activated.")
-    local_tz = pytz.timezone('Europe/Istanbul')
-    note_like_data = []
-    for note in paginated_notes.items:
-        note.date = note.date.replace(tzinfo=pytz.utc).astimezone(local_tz)
-        checking_user_liked = Like.query.filter_by(user_id=current_user.id,note_id=note.id).first()
-        note_like_data.append({"note":note,"checking_user_liked":checking_user_liked})
-    return render_template("checked-profile.html", user=user, note_like_data=note_like_data, pagination=paginated_notes)
 
 @views.route("/like-note/<int:note_id>", methods=["POST","GET"])
 def like_note(note_id):

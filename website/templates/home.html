@@ -18,7 +18,7 @@
                 <li class="list-group-item mt-3">
                     <div class="card">
                         <div class="card-header">
-                            <div class="col"><strong>@<a class="text-dark" id="user_profile_link" href="{{url_for('views.checked_profile', checked_username=item.username)}}">{{ item.username }}</strong></a> wrote: </div>
+                            <div class="col"><strong>@<a id="user_profile_link" href="{{url_for('views.user_gate_keeper', target_username=item.username)}}">{{ item.username }}</strong></a> wrote: </div>
                         </div>
                         <div class="card-body"><span>{{ item.note.content }}</span></div>
                         <div class="card-footer">

@@ -37,7 +37,7 @@
                                     <li class="nav-item dropdown">
                                         <a href=""  data-bs-toggle="dropdown" class="nav-link dropdown-toggle {%block profile_active%}{%endblock%}">{{current_user.username}}</a>
                                         <ul class="dropdown-menu">
-                                            <li id="profile-area"><a href="{{url_for('views.profile', username=current_user.username)}}" class="dropdown-item nav-dropdown-regular-item">Profile</a></li>
+                                            <li id="profile-area"><a href="{{url_for('views.user_gate_keeper', target_username=current_user.username)}}" class="dropdown-item nav-dropdown-regular-item">Profile</a></li>
                                             <li id="settings-area"><a href="#" class="dropdown-item nav-dropdown-regular-item">Settings</a></li>
                                             <li id="logout-area">
                                                 <a href="/logout" class="dropdown-item" id="logout-button">Logout</a>
