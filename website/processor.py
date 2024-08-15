@@ -30,7 +30,7 @@ def display_notes(home=False, target_username=None):
             user = User.query.get(note.user_id)
             note.date = note.date.replace(tzinfo=pytz.utc).astimezone(pytz.timezone('Europe/Istanbul'))
             user_liked = Like.query.filter_by(user_id=current_user.id, note_id= note.id).first()
-            note_data.append({"note":note, "username":user.username, "like":user_liked})
+            note_data.append({"note":note, "user":user, "user_liked":user_liked})
         return note_data, paginated_notes
     else:
         user = User.query.filter_by(username=target_username).first_or_404()

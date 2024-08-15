@@ -10,57 +10,7 @@
 {%block content%} 
 
 
-<main>
-    <div class="row min-vh-100">
-        <div class="col-sm-1"></div>
-        <div class="col-sm-9 pe-5 pt-4">
-            <div class="row pt-1">{%include "alerts.html"%}</div>
-            <div class="row pt-1"><p class="display-6">Notes of {{user.name}} (@{{user.username}}):</p></div>
-            <div class="row pt-3">
-                <ul>
-                    {%for item in note_like_data%}
-                    <li class="list-group-item mt-3">
-                        <div class="card">
-                            <div class="card-header d-flex">
-                                <span><strong>@{{ user.username }}</strong> wrote:</span>
-                            </div>
-                            <div class="card-content p-2 ml-2"><p class="p-2">{{ item.note.content }}</p></div>
-                            <div class="card-footer">
-                                <div class="row">
-                                    <div class="col">
-                                        <form action="{{url_for('views.like_note', note_id=item.note.id)}}", method="POST">
-                                            {%if item.checking_user_liked != None%}
-                                                <button type="submit" class="btn btn-lg p-0 border-0 bg-transparent text-danger"><i class="fas fa-heart"></i></button>
-                                                <span class="align-middle ms-2 ps-2 border-start border-dark">{{item.note.likes | length }} people liked</span>
-                                            {%else%}
-                                                    <button type="submit" class="btn btn-lg p-0 border-0 bg-transparent text-secondary" id="unliked_button"><i class="far fa-heart"></i></button>
-                                                    <span class="align-middle ms-2 ps-2 border-start border-dark">{{item.note.likes | length }} people liked</span>
-                                            {%endif%}
-                                        </form>
-                                    </div>
-                                    <div class="col d-flex justify-content-end">
-                                        <p class="text-start text-muted mb-0 d-inline-block" style="margin-right: 0.5vw;"><small><strong>Posted On:</strong></small></p>
-                                        <p class="text-end text-muted mb-0 d-inline-block"><small>{{ item.note.date.strftime('%d-%m-%Y %H:%M') }}</small></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    {%else%}
-                        <p>{{user.username}} has no notes yet.</p> 
-                    {%endfor%}
-                </ul>
-            </div>  
-            <div class="row p-3 pb-5 d-flex justify-content-end">
-                {%include "load-more-link.html"%}
-            </div>          
-        </div>        
-        <div class="col-sm-2 border-start border-dark">
-            <div class="row pt-3"></div>
-        </div>
-
-    </div>
-</main>
+{%include "display-notes.html"%}
 
 
 {%endblock%}

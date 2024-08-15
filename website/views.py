@@ -11,7 +11,7 @@ views = Blueprint("views", __name__)
 def home():
     if current_user.is_authenticated:
         note_data,pagination = display_notes(home=True)
-        return render_template("home.html", notes=note_data, pagination=pagination)
+        return render_template("home.html", note_data=note_data, pagination=pagination, home=True)
     else:
         return redirect(url_for("auth.login"))
 
@@ -26,11 +26,11 @@ def user_gate_keeper(target_username):
 
 def profile():
     user,note_data,pagination = display_notes(target_username=current_user.username,home=False)
-    return render_template("profile.html", user=user, note_data=note_data, pagination=pagination)
+    return render_template("profile.html", user=user, note_data=note_data, pagination=pagination, own_profile = True)
 
 def checked_profile(target_username):
     user,note_data,pagination = display_notes(target_username=target_username,home=False) 
-    return render_template("checked-profile.html", user=user, note_like_data=note_data, pagination=pagination)
+    return render_template("checked-profile.html", user=user, note_data=note_data, pagination=pagination, checked_profile=True)
 
 
 @views.route("/profiles/create_notes", methods=["POST","GET"])
@@ -51,7 +51,7 @@ def create_note():
             db.session.add(new_note)
             db.session.commit()
             flash("Congrats! Your new note is added.", category="success")
-    return redirect(url_for("views.profile", username=current_user.username))
+    return redirect(url_for("views.user_gate_keeper", target_username=current_user.username))
 
 @views.route("/delete_note/<int:note_id>", methods=["POST"])
 @login_required
@@ -64,7 +64,7 @@ def delete_note(note_id):
             flash("Note successfully deleted.", category="success")
         else:
             flash("Something went wrong.", category="error")
-    return redirect(url_for("views.profile", username=current_user.username))
+    return redirect(url_for("views.user_gate_keeper", target_username=current_user.username))
 
 
 @views.route("/like-note/<int:note_id>", methods=["POST","GET"])
