@@ -7,10 +7,18 @@
 </span>
 {%endblock%}
 
-{%block content%} 
 
 
-{%include "display-notes.html"%}
+{%block page_left_sidebar%}{%endblock%}
 
-
+{%block page_above_main_content%}
+<!--Checked-Profile Exclusive Start-->  
+<div class="row pt-1"><p class="display-6">Notes of {{user.name}} (@{{user.username}}):</p></div>
+<!--Checked-Profile Exclusive End-->
 {%endblock%}
+
+{%block page_main_content%}{%include "display-notes.html"%}{%endblock%}
+
+{%block page_below_main_content%}{%endblock%}
+
+{%block page_right_sidebar%}{%endblock%}

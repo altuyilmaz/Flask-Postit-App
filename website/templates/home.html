@@ -6,11 +6,16 @@
 {%block home_active%}active{%endblock%}
 
 
-{%block content%} 
 
-{%include "display-notes.html"%}
+{%block page_left_sidebar%}{%endblock%}
 
-{%endblock%}
+{%block page_above_main_content%}{%endblock%}
+
+{%block page_main_content%}{%include "display-notes.html"%}{%endblock%}
+
+{%block page_below_main_content%}{%endblock%}
+
+{%block page_right_sidebar%}{%endblock%}
 
 
      

@@ -58,13 +58,19 @@
             </div>
     </nav>
     <main class="container-fluid">
-    
-        {%block content%} {%endblock%}
-
+        {%block content%}   
+        <div class="row min-vh-100">
+            <div class="col-sm-2 border-end border-dark">{%block page_left_sidebar%}{%endblock%}</div>
+            <div class="col-sm-7 ps-5 pe-5 pt-2">
+                <div class="row pt-1">{%include "alerts.html"%}</div>
+                {%block page_above_main_content%}{%endblock%}
+                <div class="row pt-3 pb-5">{%block page_main_content%}{%endblock%}</div> 
+                {%block page_below_main_content%}{%endblock%}        
+            </div> 
+            <div class="col-sm-3 border-start border-dark">{%block page_right_sidebar%}{%endblock%}</div>
+        </div>
+        {%endblock%}
     </main>
-
-
-
 </body>
 
 <footer>    

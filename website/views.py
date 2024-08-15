@@ -5,6 +5,7 @@ from . import db
 import pytz
 from datetime import datetime, timedelta
 from .processor import char_len_flash_error_notification, display_notes
+
 views = Blueprint("views", __name__)
 
 @views.route("/")

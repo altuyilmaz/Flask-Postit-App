@@ -2,16 +2,40 @@
 {%block title%}{{current_user.username}}{%endblock%}
 
 {%block next_postit%}
-<span style="font-size: 1.75vh;">
-    {{current_user.username}}
-</span>
+    <span style="font-size: 1.75vh;">
+        {{current_user.username}}
+    </span>
 {%endblock%}
 
 {%block profile_active%}active{%endblock%}
 
 
-{%block content%} 
 
-{%include "display-notes.html"%}
+{%block page_left_sidebar%}{%include "profile-left-sidebar.html"%}{%endblock%}
 
+{%block page_above_main_content%}
+    <!--Profile Exclusive Create-Note Start-->
+    <div class="row pt-1"><p class="display-6">Hello {{current_user.name}}!</p></div>
+    <div class="row pt-3">
+        <form action="{{url_for('views.create_note')}}" method="POST">
+                <div class="form-group">
+                    <label for="content" class="mb-2" style="font-size: 20px; margin-left:10px;">@{{current_user.username}}:</label>
+                    <br>
+                    <textarea name="content" id="content" class="form-control" style="height: 10vh;" placeholder="Write your note here."></textarea>
+                </div>
+                <div class="d-grid pt-3">
+                    <button class="btn btn-primary btn-block" type="submit">Create and Share</button>
+                </div>
+        </form>
+    </div>
+    <!--Profile Exclusive Create-Note End-->
 {%endblock%}
+
+{%block page_main_content%}{%include "display-notes.html"%}{%endblock%}
+
+{%block page_below_main_content%}{%endblock%}
+
+{%block page_right_sidebar%}{%endblock%}
+
+
+

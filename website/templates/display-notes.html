@@ -1,88 +1,52 @@
-
-    <div class="row min-vh-100">
-        <div class="col-sm-2 border-end border-dark"><h3 class="text-white">Profile Section Here</h3></div>
-        <div class="col-sm-7 ps-5 pe-5 pt-4">
-            <div class="row pt-1">{%include "alerts.html"%}</div>
-        {%if own_profile%}
-            <!--Profile Exclusive Create-Note Start-->
-            <div class="row pt-1"><p class="display-6">Hello {{current_user.name}}!</p></div>
-            <div class="row pt-3">
-                <form action="{{url_for('views.create_note')}}" method="POST">
-                        <div class="form-group">
-                            <label for="content" class="mb-2" style="font-size: 20px; margin-left:10px;">@{{current_user.username}}:</label>
-                            <br>
-                            <textarea name="content" id="content" class="form-control" style="height: 10vh;" placeholder="Write your note here."></textarea>
+<div class="row pt-3 pb-5">
+    <ul>
+        {%for item in note_data%}
+        <li class="list-group-item mt-3">
+            <div class="card">
+                <div class="card-header d-flex">
+                {%if home%}
+                    <div class="col"><strong>@<a id="user_profile_link" href="{{url_for('views.user_gate_keeper', target_username=item.user.username)}}">{{ item.user.username }}</strong></a> wrote: </div>
+                {%else%}
+                    <div class="col"><strong>@{{ item.user.username }}</strong> wrote: </div>
+                {%endif%}
+                {%if own_profile%}    
+                    <!--Profile Exclusive Delete-Note Start-->
+                    <div class="col d-flex justify-content-end">
+                        <form action="{{url_for('views.delete_note', note_id=item.note.id)}}"
+                        method="POST"
+                        style="display: inline;"
+                        onsubmit="return confirm('Are you sure you want to delete this note?');">
+                        <button type="submit" class="btn btn-sm btn-close" id="delete_button"></button>
+                        </form>
+                    </div>
+                    <!--Profile Exclusive Delete-Note End-->
+                {%endif%}
+                </div>
+                <div class="card-content p-2 ml-2"><p class="p-2">{{ item.note.content }}</p></div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <form action="{{url_for('views.like_note', note_id=item.note.id)}}", method="POST">
+                                {%if item.user_liked != None%}
+                                    <button type="submit" class="btn btn-lg p-0 border-0 bg-transparent text-danger"><i class="fas fa-heart"></i></button>
+                                    <span class="align-middle ms-2 ps-2 border-start border-dark">{{item.note.likes | length }} people liked</span>
+                                {%else%}
+                                        <button type="submit" class="btn btn-lg p-0 border-0 bg-transparent text-secondary" id="unliked_button"><i class="far fa-heart"></i></button>
+                                        <span class="align-middle ms-2 ps-2 border-start border-dark">{{item.note.likes | length }} people liked</span>
+                                {%endif%}
+                            </form>
                         </div>
-                        <div class="d-grid pt-3">
-                            <button class="btn btn-primary btn-block" type="submit">Create and Share</button>
+                        <div class="col d-flex justify-content-end">
+                            <p class="text-start text-muted mb-0 d-inline-block" style="margin-right: 0.5vw;"><small><strong>Posted On:</strong></small></p>
+                            <p class="text-end text-muted mb-0 d-inline-block"><small>{{ item.note.date.strftime('%d-%m-%Y %H:%M') }}</small></p>
                         </div>
-                </form>
+                    </div>
+                </div>
             </div>
-            <!--Profile Exclusive Create-Note End-->
-        {%elif checked_profile%}
-            <!--Checked-Profile Exclusive Start-->  
-            <div class="row pt-1"><p class="display-6">Notes of {{user.name}} (@{{user.username}}):</p></div>
-            <!--Checked-Profile Exclusive End-->
-        {%endif%}
-            <div class="row pt-3 pb-5">
-                <ul>
-                    {%for item in note_data%}
-                    <li class="list-group-item mt-3">
-                        <div class="card">
-                            <div class="card-header d-flex">
-                            {%if home%}
-                                <div class="col"><strong>@<a id="user_profile_link" href="{{url_for('views.user_gate_keeper', target_username=item.user.username)}}">{{ item.user.username }}</strong></a> wrote: </div>
-                            {%else%}
-                                <div class="col"><strong>@{{ item.user.username }}</strong> wrote: </div>
-                            {%endif%}
-                            {%if own_profile%}    
-                                <!--Profile Exclusive Delete-Note Start-->
-                                <div class="col d-flex justify-content-end">
-                                    <form action="{{url_for('views.delete_note', note_id=item.note.id)}}"
-                                    method="POST"
-                                    style="display: inline;"
-                                    onsubmit="return confirm('Are you sure you want to delete this note?');">
-                                    <button type="submit" class="btn btn-sm btn-close" id="delete_button"></button>
-                                    </form>
-                                </div>
-                                <!--Profile Exclusive Delete-Note Start-->
-                            {%endif%}
-                            </div>
-                            <div class="card-content p-2 ml-2"><p class="p-2">{{ item.note.content }}</p></div>
-                            <div class="card-footer">
-                                <div class="row">
-                                    <div class="col">
-                                        <form action="{{url_for('views.like_note', note_id=item.note.id)}}", method="POST">
-                                            {%if item.user_liked != None%}
-                                                <button type="submit" class="btn btn-lg p-0 border-0 bg-transparent text-danger"><i class="fas fa-heart"></i></button>
-                                                <span class="align-middle ms-2 ps-2 border-start border-dark">{{item.note.likes | length }} people liked</span>
-                                            {%else%}
-                                                    <button type="submit" class="btn btn-lg p-0 border-0 bg-transparent text-secondary" id="unliked_button"><i class="far fa-heart"></i></button>
-                                                    <span class="align-middle ms-2 ps-2 border-start border-dark">{{item.note.likes | length }} people liked</span>
-                                            {%endif%}
-                                        </form>
-                                    </div>
-                                    <div class="col d-flex justify-content-end">
-                                        <p class="text-start text-muted mb-0 d-inline-block" style="margin-right: 0.5vw;"><small><strong>Posted On:</strong></small></p>
-                                        <p class="text-end text-muted mb-0 d-inline-block"><small>{{ item.note.date.strftime('%d-%m-%Y %H:%M') }}</small></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    {%else%}
-                        <p>You have no notes yet.</p> 
-                    {%endfor%}
-                </ul>
-            </div> 
-            {%include "load-more-link.html"%}       
-        </div> 
-        <div class="col-sm-3 border-start border-dark">
-            <h3 class="text-white text-center">People Will Write Things Here</h3>
-        </div>
-    </div>
-
-
-
-
-
+        </li>
+        {%else%}
+            <p>You have no notes yet.</p> 
+        {%endfor%}
+    </ul>
+</div> 
+{%include "load-more-link.html"%}
