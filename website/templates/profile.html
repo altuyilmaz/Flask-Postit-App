@@ -3,7 +3,7 @@
 
 {%block next_postit%}
     <span style="font-size: 1.75vh;">
-        {{current_user.username}}
+        <a class="text-white" href="{{url_for('views.user_gate_keeper', target_username=current_user.username)}}">{{current_user.username}}</a>    
     </span>
 {%endblock%}
 
@@ -15,7 +15,7 @@
 
 {%block page_above_main_content%}
     <!--Profile Exclusive Create-Note Start-->
-    <div class="row pt-1"><p class="display-6">Hello {{current_user.name}}!</p></div>
+    <div class="row pt-2"><p class="display-6">Hello {{current_user.name}}!</p></div>
     <div class="row pt-3">
         <form action="{{url_for('views.create_note')}}" method="POST">
                 <div class="form-group">

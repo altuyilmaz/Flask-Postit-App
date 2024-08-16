@@ -118,3 +118,91 @@ footer {
 #footer-asy:hover {
     color: lightgray;
 }
+
+#profile-left-sidebar {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2vh;
+    align-items: center;
+}
+#profile-picture-container {
+    margin-top: 3vh;
+    background-color: #333;
+    border-radius: 100%;
+    width: 70%;
+    aspect-ratio: 1 / 1;
+}
+
+#settings-container {
+    width: 100%;
+    margin-top: 7vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.setting-list {
+    padding-left: 0;
+    padding-top: 1vh;
+    list-style-type: none;
+    width: 90%;
+}
+.setting-list-head {
+    font-size: large;
+    padding-bottom: 1vh;
+    font-weight: bold;
+    border-bottom: 1px solid gray;
+    transition: border 0.3s ease;
+}
+.setting-head-icon {
+    transition: color 0.3s ease;
+}
+.setting-list-item {
+    color: gray !important;
+    padding: 1vh;
+    margin-left: 1.5vw;
+    margin-bottom: 2px;
+    border-bottom: 2px solid transparent;
+    transition: border 0.3s ease;
+}
+.setting-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: gray;
+    transition: color 0.3s ease;
+}
+.setting-arrow {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.setting-list:hover .setting-list-head{
+    border-bottom: 1px solid peru;
+}
+.setting-list:hover .setting-head-icon {
+    color: peru;
+}
+
+.setting-list-item:hover .setting-arrow {
+    color: peru;
+    opacity: 1;
+    transform: translateX(0);
+}
+.setting-list-item:hover {
+    border-bottom: 2px solid peru;
+}
+.setting-link:active {
+    color: peru
+}
+#setting-logout-container {
+    text-align: center;
+}
+#setting-logout-link {
+    color: gray;
+    font-weight: bold;
+    transition: color 0.2s step-end;
+}
+#setting-logout-link:hover {
+    color: #dc3545;
+}
