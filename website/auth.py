@@ -4,7 +4,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, logout_user, current_user
 from .processor import char_len_flash_error_notification
-from typing import Literal
 
 auth = Blueprint("auth", __name__)
 
@@ -95,18 +94,3 @@ def sign_up():
 
 
     return render_template("sign-up.html")
-
-
-def char_len_flash_error_notification(error_relation: str,
-                                    type: Literal["s","short","shorter","l","long","longer"],
-                                    char_len: str):
-    if type == "s" or type == "short" or type == "shorter":
-        notified_issue = "shorter"
-    elif type == "l" or type == "long" or type == "longer":
-        notified_issue = "longer"
-
-    error_string = f"{error_relation.capitalize()} cannot be {notified_issue} than {char_len} characters."
-
-    print(f"Error: '{error_relation}' : '{notified_issue}' : '{char_len}'")
-
-    return flash(error_string, category="error")

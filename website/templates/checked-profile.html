@@ -3,7 +3,7 @@
 
 {%block next_postit%}
 <span style="font-size: 1.75vh;">
-    <a class="text-white" href="{{url_for('views.user_gate_keeper', target_username=user.username)}}">{{user.username}}</a>
+    <a class="current-page" href="{{url_for('views.user_gate_keeper', target_username=user.username)}}">{{user.username}}</a>
 </span>
 {%endblock%}
 

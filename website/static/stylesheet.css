@@ -6,8 +6,23 @@ body {
 a {
     text-decoration: none;
 }
-
-
+.current-page {
+    color:peru
+}
+.form-control:focus {
+    border: 1px solid peru;
+    box-shadow: 0px 4px 6px peru;
+}
+.btn-postit {
+    color: #333;
+    border: 2px solid rgb(240, 123, 5);
+    background-color: #f8f9fa;
+    transition: background-color 0.6s ease, color 0.5s ease;
+}
+.btn-postit:hover {
+    color: #f8f9fa;
+    background-color: rgb(240, 123, 5);
+}
 #page_title {
     font-family: 'Lobster', cursive; /* Replace 'Lobster' with any other font from the list */
     font-size: 3vh; /* Adjust the size as needed */
@@ -22,30 +37,57 @@ a {
     right: 0 !important;
     left: auto !important; 
 }
-
-nav {
+#main-nav-dropdown {
+    margin-top: 1.25vh;
+    box-shadow: 0 2px 4px 2px rgb(168, 86, 3, 0.3);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+.main-nav {
     opacity: .8;
 }
+.nav-dropdown-arrow {
+    margin-left: 1vh;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.nav-dropdown-link.show .nav-dropdown-arrow {
+    color: peru;
+    opacity: 1;
+    transform: translateY(7px);
+    font-size: 2vh;
+    margin-left: 0.5vw;
+}
+.nav-dropdown-link{
+    transition: color 0.2s ease;
+}
+.nav-dropdown-link:hover  .nav-dropdown-arrow {
+    opacity: 1;
+    transform: translateY(0);
 
+}
 .nav-dropdown-regular-item, #logout-button {
     text-align: center;
     transition: background-color 0.2s ease, color 0.2s ease, border 0.2s ease;
 }
 .nav-dropdown-regular-item:hover {
-    border-right: 6px solid lightsalmon;
-    border-left: 6px solid lightsalmon;
+    border-right: 6px solid peru;
+    border-left: 6px solid peru;
 }
 .nav-dropdown-regular-item:active {
-    background-color: lightsalmon;
+    background-color: peru;
     color: white;
 }
 #logout-button:active {
-    background-color: #dc3545;
+    background-color: #ad0214;
     color: white;
 }
 #logout-button:hover {
-    border-right: 6px solid #dc3545;
-    border-left: 6px solid #dc3545;
+    border-right: 6px solid #ad0214;
+    border-left: 6px solid #ad0214;
     border-radius: 2px;
 }
 #user_profile_link {
@@ -120,6 +162,8 @@ footer {
 }
 
 #profile-left-sidebar {
+    position: sticky;
+    top: 5vh;
     display: flex;
     flex-direction: column;
     margin-top: 2vh;
@@ -192,10 +236,20 @@ footer {
 .setting-list-item:hover {
     border-bottom: 2px solid peru;
 }
-.setting-link:active {
+.setting-link:active { /*when the link is clicked*/
     color: peru
 }
-#setting-logout-container {
+.setting-link.active { /*when the user is on the designated seciton */
+    font-weight: bold;
+    color: peru;
+}
+.setting-link.active .setting-arrow{
+    font-size: 3vh;
+    color: peru;
+    opacity: 1;
+    transform: translateX(10px);
+}
+#setting-logout-container { 
     text-align: center;
 }
 #setting-logout-link {
@@ -204,5 +258,5 @@ footer {
     transition: color 0.2s step-end;
 }
 #setting-logout-link:hover {
-    color: #dc3545;
+    color: #ad0214;
 }

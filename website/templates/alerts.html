@@ -2,21 +2,22 @@
     {% with messages = get_flashed_messages(with_categories=true)%}
     {%if messages%}
     {%for category, message in messages%}
-    {%if category == "success"%}
-    <div class="alert alert-success alert-dismissible">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <h4 class="alert-heading">Success!</h4>
-        <hr>
-        {{message}}
-      </div>
+
+    {%if category == "error"%}
+      {%set class_category = "danger"%}
     {%else%}
-    <div class="alert alert-danger alert-dismissible">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <h4 class="alert-heading">Error!</h4>
-        <hr>
-        {{message}}
-      </div>
+      {%set class_category = category%}
     {%endif%}
+
+    <div class="alert alert-{{class_category}} alert-dismissible">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <h4 class="alert-heading">{{category.capitalize()}}!</h4>
+        <hr>
+        {{message|safe}}
+      </div>
+
+
+
     {%endfor%}
     {%endif%}
     {%endwith%}

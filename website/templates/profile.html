@@ -3,7 +3,7 @@
 
 {%block next_postit%}
     <span style="font-size: 1.75vh;">
-        <a class="text-white" href="{{url_for('views.user_gate_keeper', target_username=current_user.username)}}">{{current_user.username}}</a>    
+        <a class="current-page" href="{{url_for('views.user_gate_keeper', target_username=current_user.username)}}">{{current_user.username}}</a>    
     </span>
 {%endblock%}
 
@@ -24,7 +24,7 @@
                     <textarea name="content" id="content" class="form-control" style="height: 10vh;" placeholder="Write your note here."></textarea>
                 </div>
                 <div class="d-grid pt-3">
-                    <button class="btn btn-primary btn-block" type="submit">Create and Share</button>
+                    <button class="btn btn-block btn-postit" type="submit">Create and Share</button>
                 </div>
         </form>
     </div>

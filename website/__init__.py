@@ -19,9 +19,9 @@ def create_app():
     from .user_settings import user_settings
     from .models import User
 
-    app.register_blueprint(auth, urlprefix="/")
-    app.register_blueprint(views, urlprefix="/")
-    app.register_blueprint(user_settings, urlprefix="/profiles")
+    app.register_blueprint(auth)
+    app.register_blueprint(views)
+    app.register_blueprint(user_settings)
 
     with app.app_context():
         create_database()

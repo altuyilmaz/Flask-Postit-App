@@ -1,28 +1,28 @@
 
-<div id="profile-left-sidebar">
+<nav id="profile-left-sidebar">
     <div id="profile-picture-container"></div>
     <div id="settings-container">
         <ul class="setting-list">
             <li class="setting-list-head"><i class="fa-solid fa-user setting-head-icon" style="margin-right: 0.7vw;"></i>Account</li>
             <li class="setting-list-item">
-                <a href="{{url_for('user_settings.preferences', username=current_user.username)}}" class="setting-link"><span>Preferences</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
+                <a href="{{url_for('user_settings.settings', username=current_user.username)}}#edit-profile" class="setting-link"><span>Edit Profile</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
             <li class="setting-list-item">
-                <a href="{{url_for('user_settings.edit_profile', username=current_user.username)}}" class="setting-link"><span>Edit Profile</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
+                <a href="{{url_for('user_settings.settings', username=current_user.username)}}#preferences" class="setting-link"><span>Preferences</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
             <li class="setting-list-item">
-                <a href="{{url_for('user_settings.change_password', username=current_user.username)}}" class="setting-link"><span>Change Password</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
+                <a href="{{url_for('user_settings.settings', username=current_user.username)}}#security" class="setting-link"><span>Security</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
         </ul>
         <ul class="setting-list">
             <li class="setting-list-head">
                 <i class="fa-solid fa-bars setting-head-icon" style="margin-right: 0.7vw;"></i>More</li>
             <li class="setting-list-item">
-                <a href="{{url_for('user_settings.account_history', username=current_user.username)}}" class="setting-link"><span>Account History</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
+                <a href="{{url_for('user_settings.settings', username=current_user.username)}}#account-history" class="setting-link"><span>Account History</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
             <li class="setting-list-item">
-                <a href="{{url_for('user_settings.language', username=current_user.username)}}" class="setting-link"><span>Language</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
+                <a href="{{url_for('user_settings.settings', username=current_user.username)}}#language" class="setting-link"><span>Language</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
             <li class="setting-list-item">
-                <a href="{{url_for('user_settings.account_freeze_delete', username=current_user.username)}}" class="setting-link"><span>Account Freeze</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
+                <a href="{{url_for('user_settings.settings', username=current_user.username)}}#account-freeze" class="setting-link"><span>Account Freeze</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
         </ul>
         <ul class="setting-list">
-            <li id="setting-logout-container"><a href="" id="setting-logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
+            <li id="setting-logout-container"><a href="/logout" id="setting-logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
         </ul>
     </div>
-</div>
+</nav>
