@@ -5,6 +5,9 @@
 
     {%if category == "error"%}
       {%set class_category = "danger"%}
+    {%elif category == "message"%}
+      {%set category = "error"%}
+      {%set class_category = "danger"%}
     {%else%}
       {%set class_category = category%}
     {%endif%}

@@ -2,8 +2,6 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_required, current_user
 from .models import User, Note, Like
 from . import db
-import pytz
-from datetime import datetime, timedelta
 from .processor import char_len_flash_error_notification, display_notes
 
 views = Blueprint("views", __name__)
@@ -26,13 +24,20 @@ def user_gate_keeper(target_username):
 
 
 def profile():
-    user,note_data,pagination = display_notes(target_username=current_user.username,home=False)
-    return render_template("profile.html", user=user, note_data=note_data, pagination=pagination, own_profile = True)
+    result = display_notes(target_username=current_user.username,home=False)
+    if isinstance(result, tuple):
+        user,note_data,pagination = result
+        return render_template("profile.html", user=user, note_data=note_data, pagination=pagination, own_profile = True)
+    else:
+        return result
 
 def checked_profile(target_username):
-    user,note_data,pagination = display_notes(target_username=target_username,home=False) 
-    return render_template("checked-profile.html", user=user, note_data=note_data, pagination=pagination, checked_profile=True)
-
+    result = display_notes(target_username=target_username,home=False) 
+    if isinstance(result, tuple):
+        user,note_data,pagination = result
+        return render_template("checked-profile.html", user=user, note_data=note_data, pagination=pagination, checked_profile=True)
+    else:
+        return result
 
 @views.route("/profiles/create_notes", methods=["POST","GET"])
 @login_required

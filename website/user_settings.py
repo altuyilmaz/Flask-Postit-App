@@ -24,6 +24,7 @@ def settings(username):
 @user_settings.route("/profiles/<username>/settings/edit-profile",methods=["POST", "GET"])
 def edit_profile(username):
     if user_is_current_user(username=username):
+        return_back_settings = redirect(url_for('user_settings.settings', username=current_user.username))
         if request.method == "POST":
             fields_empty = True
             change_made = False
@@ -32,12 +33,23 @@ def edit_profile(username):
                 if value:
                     fields_empty = False
                     if value != getattr(current_user, key):
+
                         if key == "username" and User.query.filter_by(username=value).first() != None:
-                                flash("This username is already taken.",category="error")
-                                return redirect(url_for('user_settings.settings', username=current_user.username))
+                            flash("This username is already taken.",category="error")
+                            return return_back_settings
+                        elif (key =="username" or key== "name" or key == "surname") and len(value) < 2:
+                            char_len_flash_error_notification(key,"s",2)
+                            return return_back_settings
+                        elif (key =="username" or key== "name" or key == "surname") and len(value) > 20:
+                             char_len_flash_error_notification(key,"l","20")
+                             return return_back_settings
+                        
                         elif key == "email" and User.query.filter_by(email=value).first() != None:
-                                flash("This email is already taken.",category="error")
-                                return redirect(url_for('user_settings.settings', username=current_user.username))
+                            flash("This email is already taken.",category="error")
+                            return return_back_settings
+                        elif key == "email" and len(value) < 12:
+                            char_len_flash_error_notification(key,"s","12")
+                            return return_back_settings
                         else:
                             print(f"Value to change: {key} will be {value}") 
                             changes[key] = value
