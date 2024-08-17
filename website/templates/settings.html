@@ -1,0 +1,201 @@
+{%extends "base.html"%}
+{%block title%}{{current_user.username}} | Settings{%endblock%}
+{%block next_postit%}
+    <span style="font-size: 1.75vh;">
+        <a class="text-white" href="{{url_for('views.user_gate_keeper', target_username=current_user.username)}}">{{current_user.username}}</a>
+        <span class="ms-1 me-1">/</span>
+        <a class="current-page" href="{{url_for('user_settings.settings', username=current_user.username)}}">settings</a>  
+    </span>
+{%endblock%}
+
+{%block profile_active%}active{%endblock%}
+
+
+{%block page_above_main_content%}
+{%endblock%}
+
+{%block page_left_sidebar%}{%include "profile-left-sidebar.html"%}{%endblock%}
+
+{%block page_main_content%}
+    {%block setting_content%}
+    <style>
+
+        
+        section {
+            width: 100%;
+            height: 100vh;
+            /*border: 2px solid red*/
+        }
+        .nav-override-space {
+            height: 5.3vh;
+            width: 100%;
+            /*background-color: yellow*/
+        }
+        .section-content {
+            width: auto;
+            height: calc(100% - 5.3vh);
+        }
+        .section-content-head {
+            font-size: 4vh;
+            padding: 3vh;
+
+        }
+        .section-icon {
+            color: peru;
+            margin-right: 1vw;
+        }
+        .section-header {
+            font-family: 'Quicksand', sans-serif;
+            color: rgb(12, 12, 12);
+        }
+        .section-content-body {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #edit-photo {
+            margin-left: 2.5vw;
+            width: 30%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            border-radius: 100%;
+            background-color: #333;
+        }
+        #add-photo-icon {
+            font-size: 3vh;
+            color: white;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            opacity: .5;
+        }
+        #edit-info {
+            margin-right: 2.5vw;
+            width: 50%;
+            height: auto;
+            aspect-ratio: 1 / 1.3;
+            display: flex;
+            align-items: center;
+        }
+        .edit-form-line {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: start;
+            padding: 1rem;
+            margin-top: 2vh;
+        }
+        .edit-form {
+            flex-grow: 1;
+            padding: 0.5vh;
+        }
+        .edit-label {
+            width: 40%;
+            font-family: 'Quicksand', sans-serif;
+            color: rgb(12, 12, 12);
+            font-size: 2vh;
+            margin-left: 3vw;
+            margin-right: 1.5vw;
+        }
+        .set-changes {
+            margin-top: 5vh;
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: end;
+        }
+    </style>
+    <div data-bs-spy="scroll" data-bs-target="#settings-container" data-bs-offset="0" class="scrollspy-container" tabindex="0">
+
+        <section id="edit-profile">
+            <div class="nav-override-space"></div>
+            <div class="section-content">
+                <div class="section-content-head">
+                    <i class="fa-solid fa-user-pen section-icon"></i>
+                    <span class="section-header">Edit Profile:</span>
+                </div>
+                <div class="section-content-body">
+                    <div id="edit-photo"><i class="fa-solid fa-camera" id="add-photo-icon"></i></div>
+                    <div id="edit-info">
+                        <form method="POST" action="{{url_for('user_settings.edit_profile',username=current_user.username)}}">
+                            <div class="edit-form-line">
+                                <label for="name" class="edit-label">Name:</label>
+                                <input type="text" class="form-control edit-form" name="name" id="new_name"
+                                placeholder="{{current_user.name}}">
+                            </div>
+                            <div class="edit-form-line">
+                                <label for="surname" class="edit-label">Surname:</label>
+                                <input type="text" class="form-control edit-form" name="surname" id="new_surname"
+                                placeholder="{{current_user.surname}}">
+                            </div>
+                            <div class="edit-form-line">
+                                <label for="username" class="edit-label">Username:</label>
+                                <span class="input-group-text" style="padding: 0.5  vh; border-top-right-radius:0; border-bottom-right-radius:0; border-right:0; background-color: peru; color: white;">@</span>
+                                <input type="text" class="form-control edit-form" name="username" id="new_username"
+                                placeholder="{{current_user.username}}" style="border-top-left-radius:0; border-bottom-left-radius:0; border-left:0;">
+                            </div>
+                            <div class="edit-form-line">
+                                <label for="email" class="edit-label">Email:</label>
+                                <input type="email" class="form-control edit-form" name="email" id="new_email"
+                                placeholder="{{current_user.email}}">
+                            </div>
+                            <div class="set-changes">
+                                <button class="btn btn-postit" type="submit">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+            
+
+        </section>
+    
+        <section id="preferences">
+            <div class="nav-override-space"></div>
+            <div class="section-content">
+                <h2>Preferences</h2>
+            </div>
+
+        </section>
+    
+        <section id="security">
+            <div class="nav-override-space"></div>
+            <div class="section-content">
+                <h2>Security</h2>
+            </div>
+
+        </section>
+    
+        <section id="account-history">
+            <div class="nav-override-space"></div>
+            <div class="section-content">
+                <h2>Account History</h2>
+            </div>
+
+        </section>
+    
+        <section id="language">
+            <div class="nav-override-space"></div>
+            <div class="section-content">
+                <h2>Language</h2>
+            </div>
+
+        </section>
+    
+        <section id="account-freeze">
+            <div class="nav-override-space"></div>
+            <div class="section-content">
+                <h2>Account Freeze</h2>
+            </div>
+
+        </section>
+    </div>
+    {%endblock%}
+{%endblock%}
+
+{%block page_below_main_content%}{%endblock%}
+
+{%block page_right_sidebar%}{%endblock%}
