@@ -9,16 +9,54 @@
 
 
 
-{%block page_left_sidebar%}{%endblock%}
+
+{%block page_left_sidebar%}{%include "checked-profile-left-sidebar.html"%}{%endblock%}
+
 
 {%block page_above_main_content%}
-<!--Checked-Profile Exclusive Start-->  
-<div class="row pt-1"><p class="display-6">Notes of {{user.name}} (@{{user.username}}):</p></div>
-<!--Checked-Profile Exclusive End-->
+<style>
+    .target-banned {
+        text-decoration: line-through;
+    }
+    .current_banned {
+        color:brown;
+    }
+</style>   
+    {% if banned_user == "target" %}
+        {%set ban_class = "target-banned"%}
+    {%elif banned_user == "current" %}
+        {%set ban_class = "current_banned"%}
+    {%else%}
+        {%set ban_class = "no_ban"%}
+    {%endif%}
+
+    <div class="row pt-4"><p class="display-6 {{ ban_class }}"> Notes of {{user.name}} (@{{user.username}}):</p></div>
 {%endblock%}
 
-{%block page_main_content%}{%include "display-notes.html"%}{%endblock%}
+{%block page_main_content%}
+
+    {% if banned_user == "target" %}
+        <h1>@{{user.username}} is banned. <img src="{{url_for('static', filename='icons/broken-pen.svg')}}" alt="Broken Pen Icon" id="broken-pen"></h1>
+        <p class="pt-4">What did <strong>@{{user.username}}</strong> do to bother you? <br> You are not alone! <a href="{{url_for('views.contact')}}" style="color:red; font-weight: bold;">Report</a></p>
+    {%elif banned_user == "current" %}
+        <h1>@{{user.username}} has banned you.</h1>
+    {%else%}  
+        <h1>Neither of Users are Banned</h1>
+        {%include "display-notes.html"%}
+    {%endif%}
+
+{%endblock%}
 
 {%block page_below_main_content%}{%endblock%}
 
-{%block page_right_sidebar%}{%endblock%}
+{%block page_right_sidebar%}
+
+    {% if banned_user == "target" %}
+        <h1>Target User is Banned</h1>
+    {%elif banned_user == "current" %}
+        <h1>Target User Banned Current User</h1>
+    {%else%}  
+        <h1>Neither of Users are Banned</h1>
+    {%endif%}
+
+{%endblock%}

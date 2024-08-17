@@ -9,15 +9,15 @@
             <li class="setting-list-item">
                 <a href="{{url_for('user_settings.settings', username=current_user.username)}}#preferences" class="setting-link"><span>Preferences</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
             <li class="setting-list-item">
-                <a href="{{url_for('user_settings.settings', username=current_user.username)}}#security" class="setting-link"><span>Security</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
+                <a href="{{url_for('user_settings.settings', username=current_user.username)}}#account-security" class="setting-link"><span>Account Security</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
         </ul>
         <ul class="setting-list">
             <li class="setting-list-head">
                 <i class="fa-solid fa-bars setting-head-icon" style="margin-right: 0.7vw;"></i>More</li>
             <li class="setting-list-item">
-                <a href="{{url_for('user_settings.settings', username=current_user.username)}}#account-history" class="setting-link"><span>Account History</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
-            <li class="setting-list-item">
                 <a href="{{url_for('user_settings.settings', username=current_user.username)}}#language" class="setting-link"><span>Language</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
+            <li class="setting-list-item">
+                <a href="{{url_for('user_settings.settings', username=current_user.username)}}#statistics" class="setting-link"><span>Statistics</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
             <li class="setting-list-item">
                 <a href="{{url_for('user_settings.settings', username=current_user.username)}}#account-freeze" class="setting-link"><span>Account Freeze</span><i class="fa-solid fa-chevron-right setting-arrow"></i></a></li>
         </ul>

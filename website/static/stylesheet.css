@@ -260,3 +260,9 @@ footer {
 #setting-logout-link:hover {
     color: #ad0214;
 }
+#broken-pen {
+    width: 10vh;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    opacity: .75;
+}

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_required, current_user
-from .models import User, Note, Like
+from .models import User, Note, Like, Ban
 from . import db
 from .processor import char_len_flash_error_notification, display_notes
 
@@ -32,10 +32,24 @@ def profile():
         return result
 
 def checked_profile(target_username):
+
     result = display_notes(target_username=target_username,home=False) 
+
     if isinstance(result, tuple):
+
+        target_user = User.query.filter_by(username=target_username).first()
+        target_user_is_banned = Ban.query.filter_by(banning_user_id=current_user.id,banned_user_id=target_user.id).first()
+        current_user_is_banned = Ban.query.filter_by(banning_user_id=target_user.id,banned_user_id=current_user.id).first()
+
+        if target_user_is_banned:
+            banned_user = "target"
+        elif current_user_is_banned:
+            banned_user = "current"
+        else:
+            banned_user = None
+        print(banned_user)
         user,note_data,pagination = result
-        return render_template("checked-profile.html", user=user, note_data=note_data, pagination=pagination, checked_profile=True)
+        return render_template("checked-profile.html", user=user, note_data=note_data, pagination=pagination, checked_profile=True, banned_user=banned_user)
     else:
         return result
 

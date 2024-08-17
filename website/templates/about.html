@@ -1,11 +1,19 @@
 {%extends "base.html"%}
 {%block title%}About{%endblock%}
-{%block next_postit%}About{%endblock%}
-{%block about_active%}active{%endblock%}
-
-
-{%block content%} 
-
-<h1 class="mt-5">This Page is About ASY</h1>
-
+{%block next_postit%}
+    <span style="font-size: 2vh;">
+        <a href="{{url_for('views.about')}}" class="current-page">about</a>
+    </span>
 {%endblock%}
+
+
+
+
+
+{%block page_left_sidebar%}{%endblock%}
+{%block page_above_main_content%}<h1 class="mt-5">This Page is About ASY</h1>{%endblock%}
+{%block page_main_content%}{%endblock%}
+{%block page_below_main_content%}{%endblock%}
+{%block page_right_sidebar%}{%endblock%}
+
+

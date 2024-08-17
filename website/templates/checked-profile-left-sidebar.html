@@ -1,0 +1,7 @@
+<h1>Checked Left Sidebar Included.</h1>
+
+<div class="ban-user-container">
+    <form action="{{url_for('user_settings.ban_user', target_username=user.username)}}", method="POST">
+        <button class="btn btn-postit" type="submit" name="{{user.username}}">Ban {{user.username}}</button>
+    </form>
+</div>
